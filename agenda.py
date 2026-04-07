@@ -12,7 +12,8 @@ while True:
     print("------ AGENDA ------")
     print("1. Adicionar")
     print("2. Ver Contatos")
-    print("3. Sair")
+    print("3. Limpar Lista de Contatos")
+    print("0. Sair")
 
     opcao = input("Escolha uma opção: ")
 
@@ -20,17 +21,30 @@ while True:
         os.system("cls")
         nome = input("Digite o nome: ")
         telefone = input("Digite o telefone: ")
+        email = input("Digite o e-mail: ")
 
-        # Montamos a "ficha" (Dicionário) e guardamos na "prateleira" (Lista)
-        contato = {
-            "nome": nome,
-            "telefone": telefone
-        }
-        agenda.append(contato)
+        contato_clonado = False
 
-        # Atenção à aspa simples no ['nome'] para não dar SyntaxError!
-        print(f"{contato['nome']} foi adicionado com sucesso!")
-        time.sleep(TEMPO)
+        for contato in agenda:
+            if contato['nome'].strip().lower() == nome.strip().lower():
+                contato_clonado = True
+                break
+        
+        if contato_clonado:
+            print(f"O contato {nome} já existe!")
+            time.sleep(TEMPO)
+        else:
+            # Montamos a "ficha" (Dicionário) e guardamos na "prateleira" (Lista)
+            contato = {
+                "nome": nome,
+                "telefone": telefone,
+                "email": email
+            }
+            agenda.append(contato)
+
+            # Atenção à aspa simples no ['nome'] para não dar SyntaxError!
+            print(f"{contato['nome']} foi adicionado com sucesso!")
+            time.sleep(TEMPO)
         
     elif opcao == "2":
         os.system("cls")
@@ -41,15 +55,21 @@ while True:
             time.sleep(TEMPO)
             continue 
         
+        print(f"Você tem {len(agenda)} contatos salvos.")
         print("------ LISTA DE CONTATOS ------")
         # O for percorre a lista e desempacota o dicionário
         for contato in agenda:
-            print(f"| Nome: {contato['nome']} --- Telefone: {contato['telefone']} |")
+            print(f"| Nome: {contato['nome']} --- Telefone: {contato['telefone']} --- E-mail: {contato['email']} |")
         
         print("------ FIM DA LISTA ------")
         time.sleep(10)
 
     elif opcao == "3":
+        agenda.clear()
+        print("A agenda foi limpa!")
+        time.sleep(TEMPO)
+
+    elif opcao == "0":
         os.system("cls")
         print("Finalizando aplicação...")
         time.sleep(TEMPO)
