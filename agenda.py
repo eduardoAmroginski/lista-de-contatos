@@ -2,10 +2,12 @@ import time
 import os
 
 agenda = []
-TEMPO = 3
+# Variáveis em MAIÚSCULO são "Constantes" (valores que não mudam).
+TEMPO = 3  
 
 while True:
-    os.system("cls")
+    # Limpa a tela antes de mostrar o menu
+    os.system("cls") 
 
     print("------ AGENDA ------")
     print("1. Adicionar")
@@ -16,41 +18,43 @@ while True:
 
     if opcao == "1":
         os.system("cls")
+        nome = input("Digite o nome: ")
+        telefone = input("Digite o telefone: ")
 
-        nome = input("Digite o nome do contato: ")
-        telefone = input("Digite o telefone do contato: ")
-
+        # Montamos a "ficha" (Dicionário) e guardamos na "prateleira" (Lista)
         contato = {
             "nome": nome,
             "telefone": telefone
         }
-
         agenda.append(contato)
 
-        print(f"{contato["nome"]} foi adicionado com sucesso!")
+        # Atenção à aspa simples no ['nome'] para não dar SyntaxError!
+        print(f"{contato['nome']} foi adicionado com sucesso!")
         time.sleep(TEMPO)
         
     elif opcao == "2":
         os.system("cls")
 
+        # Se a prateleira estiver vazia, avisa e volta para o menu (continue)
         if len(agenda) == 0:
             print("A lista de contatos está vazia!")
             time.sleep(TEMPO)
-            continue
+            continue 
         
         print("------ LISTA DE CONTATOS ------")
-
+        # O for percorre a lista e desempacota o dicionário
         for contato in agenda:
             print(f"| Nome: {contato['nome']} --- Telefone: {contato['telefone']} |")
         
-        print("------ FIM DA LISTA DE CONTATOS ------")
+        print("------ FIM DA LISTA ------")
         time.sleep(10)
 
     elif opcao == "3":
         os.system("cls")
         print("Finalizando aplicação...")
         time.sleep(TEMPO)
-        break
+        break # O freio de emergência!
+
     else:
         os.system("cls")
         print("Opção inválida, tente novamente!")
